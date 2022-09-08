@@ -2,13 +2,10 @@
 # -*- coding: utf-8 -*-
 # @time    : 2022/04/09 21:27
 # @author  : xiaomi
-import time
 from git import Repo
 from turtle import update
-import os
 import requests
-import flask, json
-from urllib.parse import quote, unquote, urlencode
+import time,os, json
 
 botToken="5528541550:AAHMN2eOC-6W1PkreoQcHfnIwhEzjXmecg4"
 updateId = None
@@ -24,11 +21,22 @@ def getUpdates(offset):
     if (result["ok"]==True):
         messages = result["result"]
         for message in messages:
+            chat_id = message["message"]["chat"]["id"]
             if (message["message"]["chat"]["id"]==listem_id):
                 if("document" in message["message"]):
-                    downFile(message["message"]["document"]["file_id"],message["message"]["document"]["file_name"],message["message"]["chat"]["id"])
+                    file_name = message["message"]["document"]["file_name"]
+                    downFile(message["message"]["document"]["file_id"],file_name,chat_id)
                 else:
-                    print(message["message"]["chat"]["title"]+"("+str(message["message"]["chat"]["id"])+")消息："+message["message"]["text"])
+                    text = message["message"]["text"]
+                    print(message["message"]["chat"]["title"]+"("+str(message["message"]["chat"]["id"])+")消息："+text)
+                    if("删除 " in text):
+                        fileName = text.split( )[1]
+                        sendMsg(chat_id,">>>>>>>>开始执行删除操作")
+                        try:
+                            os.unlink(fileName)
+                        except:
+                            sendMsg(chat_id,">>>>>>>>文件不存在")
+                        pushFile()
                 global updateId
                 updateId = message["update_id"]+1
 
