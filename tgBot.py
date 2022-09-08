@@ -70,11 +70,11 @@ def pushFile():
     repo = Repo(dirfile)
     g = repo.git
     g.add("--all")
-    # try:
-    g.commit("-m auto update")
-    # except:
-    #     print("没有任何改变,无须更新")
-        # return True
+    try:
+        g.commit("-m auto update")
+    except:
+        print("没有任何改变,无须更新")
+        return True
     try:
         a = g.push()
         print(a)
