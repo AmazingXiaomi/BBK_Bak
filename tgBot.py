@@ -75,6 +75,9 @@ def pushFile():
     except:
         print("没有任何改变,无须更新")
         return True
+    a = g.push()
+    print(a)
+    return True
     try:
         a = g.push()
         print(a)
