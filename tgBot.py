@@ -74,7 +74,8 @@ def pushFile():
     #     print("没有任何改变,无须更新")
         # return True
     try:
-        g.push()
+        a = g.push()
+        print(a)
         return True
     except:
         print("上传失败")
