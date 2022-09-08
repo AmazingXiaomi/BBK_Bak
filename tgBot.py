@@ -37,9 +37,9 @@ def getUpdates(offset):
                         except:
                             sendMsg(chat_id,">>>>>>>>文件不存在")
                         if(pushFile()):
-                            sendMsg(chat_id,file_name+"删除成功")
+                            sendMsg(chat_id,fileName+"删除成功")
                             return
-                        sendMsg(chat_id,file_name+"删除失败,网络异常")
+                        sendMsg(chat_id,fileName+"删除失败,网络异常")
                 global updateId
                 updateId = message["update_id"]+1
 
