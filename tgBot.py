@@ -59,7 +59,7 @@ def downFile(fileId,file_name,chat_id):
             print(b)
             print("文件下载成功:"+file_name)
             pushResult = pushFile()
-            if(pushFile):
+            if(pushResult):
                 sendMsg(chat_id,file_name+"上传成功")
                 return
             sendMsg(chat_id,file_name+"上传失败,网络异常")
