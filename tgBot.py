@@ -31,13 +31,15 @@ def getUpdates(offset):
                     print(message["message"]["chat"]["title"]+"("+str(message["message"]["chat"]["id"])+")消息："+text)
                     if("删除 " in text):
                         fileName = text.split( )[1]
-                        sendMsg(chat_id,">>>>>>>>开始删除"+fileName)
+                        sendMsg(chat_id,">>>>>>>>开始删除: "+fileName)
                         try:
                             os.unlink(fileName)
                         except:
                             sendMsg(chat_id,">>>>>>>>文件不存在")
-                        pushFile()
-                        sendMsg(chat_id,">>>>>>>>删除成功")
+                        if(pushFile()):
+                            sendMsg(chat_id,file_name+"删除成功")
+                            return
+                        sendMsg(chat_id,file_name+"删除失败,网络异常")
                 global updateId
                 updateId = message["update_id"]+1
 
@@ -52,7 +54,6 @@ def downFile(fileId,file_name,chat_id):
     if (result["ok"]==True):
         filePath = result["result"]["file_path"]
         filePathUrl = "https://api.telegram.org/file/bot"+botToken+"/"+filePath
-        print(filePathUrl)
         down_res = requests.request("GET", filePathUrl, data=None, headers=None)
         with open(file_name,"wb") as code:
             code.write(down_res.content)
