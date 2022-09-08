@@ -13,6 +13,7 @@ listem_id=-1001714808788
 def getUpdates(offset):
     if (offset):
         url = "https://api.telegram.org/bot"+botToken+"/getUpdates?offset="+str(offset)
+        print(url)
     else:
         url = "https://api.telegram.org/bot"+botToken+"/getUpdates"
     response = requests.request("GET", url, data=None, headers=None)
