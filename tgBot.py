@@ -68,14 +68,15 @@ def pushFile():
     dirfile = os.path.abspath('') # code的文件位置，我默认将其存放在根目录下
     repo = Repo(dirfile)
     g = repo.git
-    g.add("--all")
-    g.commit("-m auto update")
     try:
+        g.add("--all")
+        g.commit("-m auto update")
         g.push()
         return True
     except:
         print("上传失败")
         return False
+
 def sendMsg(chat_id,text):
     url = "https://api.telegram.org/bot"+botToken+"/sendMessage?chat_id="+str(chat_id)+"&text="+text
     response = requests.request("GET", url, data=None, headers=None)
