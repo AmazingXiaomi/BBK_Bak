@@ -45,7 +45,7 @@ def getUpdates(offset):
 
 
 def downFile(fileId,file_name,chat_id):
-    sendMsg(chat_id,">>>>>>>>开始上传")
+    sendMsg(chat_id,"开始上传:"+file_name)
     fileIdUrl = "https://api.telegram.org/bot"+botToken+"/getFile?file_id="+fileId
     response = requests.request("GET", fileIdUrl, data=None, headers=None)
     resultStr = response.text
