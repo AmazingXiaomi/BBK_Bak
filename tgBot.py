@@ -26,14 +26,15 @@ def getUpdates(offset):
         for message in messages:
             if (message["message"]["chat"]["id"]==listem_id):
                 if("document" in message["message"]):
-                    downFile(message["message"]["document"]["file_id"],message["message"]["document"]["file_name"])
+                    downFile(message["message"]["document"]["file_id"],message["message"]["document"]["file_name"],message["message"]["chat"]["id"])
                 else:
                     print(message["message"]["chat"]["title"]+"("+str(message["message"]["chat"]["id"])+")消息："+message["message"]["text"])
                 global updateId
                 updateId = message["update_id"]+1
 
 
-def downFile(fileId,file_name):
+def downFile(fileId,file_name,chat_id):
+    sendMsg(chat_id,"开始上传>>>>>>>>")
     fileIdUrl = "https://api.telegram.org/bot"+botToken+"/getFile?file_id="+fileId
     response = requests.request("GET", fileIdUrl, data=None, headers=None)
     resultStr = response.text
@@ -48,6 +49,8 @@ def downFile(fileId,file_name):
             code.write(down_res.content)
             print("文件下载成功:"+file_name)
             pushFile()
+            sendMsg(chat_id,file_name+"上传成功")
+
 
 def pushFile():
     dirfile = os.path.abspath('') # code的文件位置，我默认将其存放在根目录下
@@ -57,6 +60,11 @@ def pushFile():
     g.commit("-m auto update")
     g.push()
     print("Successful push!")
+
+def sendMsg(chat_id,text):
+    url = "https://api.telegram.org/bot"+botToken+"/sendMessage?chat_id="+str(chat_id)+"&text="+text
+    response = requests.request("GET", url, data=None, headers=None)
+    resultStr = response.text
 if __name__ == '__main__':
     # api.run(port=9001, debug=True, host='0.0.0.0')
     while True:
