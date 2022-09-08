@@ -34,4 +34,4 @@ RepoFileExtensions="js py ts sh bbk"
 ## 2.拉库命令
 ```sh
 ql repo https://github.com/bbk128/bbk.git "a_" "NoUsed" "BBK" "master" "sh|bbk"
-```# BBK_Bak
+```
