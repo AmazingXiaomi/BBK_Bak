@@ -86,6 +86,7 @@ def pushFile():
 
 @retry(retry_on_exception='git.exc.GitCommandError')
 def push(git):
+    print("git push")
     git.push()
 
 def sendMsg(chat_id,text):
