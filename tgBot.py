@@ -31,11 +31,11 @@ def getUpdates(offset):
                     print(message["message"]["chat"]["title"]+"("+str(message["message"]["chat"]["id"])+")消息："+text)
                     if("删除 " in text):
                         fileName = text.split( )[1]
-                        sendMsg(chat_id,">>>>>>>>开始删除: "+fileName)
+                        sendMsg(chat_id,"开始删除: "+fileName)
                         try:
                             os.unlink(fileName)
                         except:
-                            sendMsg(chat_id,">>>>>>>>文件不存在")
+                            sendMsg(chat_id,"本地文件不存在")
                         if(pushFile()):
                             sendMsg(chat_id,fileName+"删除成功")
                             return
