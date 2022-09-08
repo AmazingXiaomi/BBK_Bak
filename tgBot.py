@@ -84,7 +84,7 @@ def pushFile():
     #     print("上传失败")
     #     return False
 
-@retry(stop_max_attempt_number=3,retry_on_exception='git.exc.GitCommandError')
+@retry(retry_on_exception='git.exc.GitCommandError')
 def push(git):
     git.push()
 
