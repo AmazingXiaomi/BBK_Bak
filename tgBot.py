@@ -37,6 +37,7 @@ def getUpdates(offset):
                         except:
                             sendMsg(chat_id,">>>>>>>>文件不存在")
                         pushFile()
+                        sendMsg(chat_id,">>>>>>>>删除成功")
                 global updateId
                 updateId = message["update_id"]+1
 
