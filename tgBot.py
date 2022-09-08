@@ -84,10 +84,9 @@ def pushFile():
     #     print("上传失败")
     #     return False
 
-@retry(stop_max_attempt_number=3)
+@retry(stop_max_attempt_number=3,retry_on_expection='git.exc.GitCommandError')
 def push(git):
     git.push()
-    raise Exception
 
 def sendMsg(chat_id,text):
     url = "https://api.telegram.org/bot"+botToken+"/sendMessage?chat_id="+str(chat_id)+"&text="+text
