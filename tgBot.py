@@ -68,9 +68,13 @@ def pushFile():
     dirfile = os.path.abspath('') # code的文件位置，我默认将其存放在根目录下
     repo = Repo(dirfile)
     g = repo.git
+    g.add("--all")
     try:
-        g.add("--all")
         g.commit("-m auto update")
+    except:
+        print("没有任何改变,无须更新")
+        return True
+    try:
         g.push()
         return True
     except:
