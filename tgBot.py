@@ -6,6 +6,7 @@ from git import Repo
 from turtle import update
 import requests
 import time,os, json
+from retrying import retry
 
 botToken="5528541550:AAHMN2eOC-6W1PkreoQcHfnIwhEzjXmecg4"
 updateId = None
@@ -75,16 +76,16 @@ def pushFile():
     except:
         print("没有任何改变,无须更新")
         return True
-    a = g.push()
-    print(a)
-    return True
     try:
-        a = g.push()
-        print(a)
+        push()
         return True
     except:
         print("上传失败")
         return False
+
+@retry(stop_max_attempt_number=3)
+def push(git):
+    git.push()
 
 def sendMsg(chat_id,text):
     url = "https://api.telegram.org/bot"+botToken+"/sendMessage?chat_id="+str(chat_id)+"&text="+text
