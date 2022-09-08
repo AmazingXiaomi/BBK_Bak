@@ -55,7 +55,8 @@ def downFile(fileId,file_name,chat_id):
         filePathUrl = "https://api.telegram.org/file/bot"+botToken+"/"+filePath
         down_res = requests.request("GET", filePathUrl, data=None, headers=None)
         with open(file_name,"wb") as code:
-            code.write(down_res.content)
+            b = code.write(down_res.content)
+            print(b)
             print("文件下载成功:"+file_name)
             pushResult = pushFile()
             if(pushFile):
