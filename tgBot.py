@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 # @time    : 2022/04/09 21:27
 # @author  : xiaomi
+# @desc    :tg机器人上传代码到git
+# pip install retrying
+# 
 from git import Repo
 from turtle import update
 import requests
@@ -22,6 +25,8 @@ def getUpdates(offset):
     if (result["ok"]==True):
         messages = result["result"]
         for message in messages:
+            if (message["message"]["from"]["id"]!=5433065757):
+                return
             chat_id = message["message"]["chat"]["id"]
             if (message["message"]["chat"]["id"]==listem_id):
                 if("document" in message["message"]):
