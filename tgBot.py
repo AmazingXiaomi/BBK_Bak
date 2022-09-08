@@ -57,12 +57,13 @@ def downFile(fileId,file_name,chat_id):
         with open(file_name,"wb") as code:
             b = code.write(down_res.content)
             print(b)
-            print("文件下载成功:"+file_name)
-            pushResult = pushFile()
-            if(pushResult):
-                sendMsg(chat_id,file_name+"上传成功")
-                return
-            sendMsg(chat_id,file_name+"上传失败,网络异常")
+
+        print("文件下载成功:"+file_name)
+        pushResult = pushFile()
+        if(pushResult):
+            sendMsg(chat_id,file_name+"上传成功")
+            return
+        sendMsg(chat_id,file_name+"上传失败,网络异常")
 
 def pushFile():
     dirfile = os.path.abspath('') # code的文件位置，我默认将其存放在根目录下
