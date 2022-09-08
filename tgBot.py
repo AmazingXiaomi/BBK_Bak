@@ -86,6 +86,7 @@ def pushFile():
 @retry(stop_max_attempt_number=3)
 def push(git):
     git.push()
+    raise Exception
 
 def sendMsg(chat_id,text):
     url = "https://api.telegram.org/bot"+botToken+"/sendMessage?chat_id="+str(chat_id)+"&text="+text
