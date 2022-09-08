@@ -31,7 +31,7 @@ def getUpdates(offset):
                     print(message["message"]["chat"]["title"]+"("+str(message["message"]["chat"]["id"])+")消息："+text)
                     if("删除 " in text):
                         fileName = text.split( )[1]
-                        sendMsg(chat_id,">>>>>>>>开始执行删除操作")
+                        sendMsg(chat_id,">>>>>>>>开始删除"+fileName)
                         try:
                             os.unlink(fileName)
                         except:
@@ -57,9 +57,11 @@ def downFile(fileId,file_name,chat_id):
         with open(file_name,"wb") as code:
             code.write(down_res.content)
             print("文件下载成功:"+file_name)
-            pushFile()
-            sendMsg(chat_id,file_name+"上传成功")
-
+            pushResult = pushFile()
+            if(pushFile):
+                sendMsg(chat_id,file_name+"上传成功")
+                return
+            sendMsg(chat_id,file_name+"上传失败,网络异常")
 
 def pushFile():
     dirfile = os.path.abspath('') # code的文件位置，我默认将其存放在根目录下
@@ -67,9 +69,12 @@ def pushFile():
     g = repo.git
     g.add("--all")
     g.commit("-m auto update")
-    g.push()
-    print("Successful push!")
-
+    try:
+        g.push()
+        return True
+    except:
+        print("上传失败")
+        return False
 def sendMsg(chat_id,text):
     url = "https://api.telegram.org/bot"+botToken+"/sendMessage?chat_id="+str(chat_id)+"&text="+text
     response = requests.request("GET", url, data=None, headers=None)
