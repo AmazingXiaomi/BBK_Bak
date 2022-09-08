@@ -50,7 +50,6 @@ def downFile(fileId,file_name,chat_id):
     response = requests.request("GET", fileIdUrl, data=None, headers=None)
     resultStr = response.text
     result = json.loads(resultStr)
-    print(result)
     if (result["ok"]==True):
         filePath = result["result"]["file_path"]
         filePathUrl = "https://api.telegram.org/file/bot"+botToken+"/"+filePath
