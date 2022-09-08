@@ -13,7 +13,6 @@ listem_id=-1001714808788
 def getUpdates(offset):
     if (offset):
         url = "https://api.telegram.org/bot"+botToken+"/getUpdates?offset="+str(offset)
-        print(url)
     else:
         url = "https://api.telegram.org/bot"+botToken+"/getUpdates"
     response = requests.request("GET", url, data=None, headers=None)
@@ -39,7 +38,8 @@ def getUpdates(offset):
                             sendMsg(chat_id,"本地文件不存在")
                         if(pushFile()):
                             sendMsg(chat_id,fileName+"删除成功")
-                        sendMsg(chat_id,fileName+"删除失败,网络异常")
+                        else:
+                            sendMsg(chat_id,fileName+"删除失败,网络异常")
                 global updateId
                 updateId = message["update_id"]+1
 
