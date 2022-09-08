@@ -76,12 +76,13 @@ def pushFile():
     except:
         print("没有任何改变,无须更新")
         return True
-    try:
-        push()
-        return True
-    except:
-        print("上传失败")
-        return False
+    push()
+
+    # try:
+    #     return True
+    # except:
+    #     print("上传失败")
+    #     return False
 
 @retry(stop_max_attempt_number=3)
 def push(git):
