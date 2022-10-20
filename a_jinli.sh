@@ -6,6 +6,10 @@
 # export AUTO_OPEN_JINLI_READPACKET="true" # 助力满自动开红包，默认不开
 # export JINLI_REDPACKET_IDS="要助力的红包ID&要助力的红包ID" # 英文'&'分隔，设置了此变量就直接助力,不获取助力码了
 # export JINLI_BAN_PINS="123&456" #锦鲤助力时这里指定的pin将不助力(黑名单)
+# export JINLI_SHUNXU_DEALY="2" #助力等待2秒,可选参数,可以不填,默认0秒
+# export CK_START_INDEX="10"  #从第10个号开始助力,可选参数,可以不填
+# export JINLI_SUCCESS_COUNT="90" # 每个号要助力多少个自动切下一个号,可选参数,可以不填,默认助力满
+# export JINLI_USE_PROXY="true" #强制使用代理访问
 pwd
 _ftype=""
 get_arch=`arch`
